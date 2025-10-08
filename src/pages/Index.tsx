@@ -94,6 +94,7 @@ const Index = () => {
             <GarageRecommendations 
               carMake={formData.carMake}
               emirate={formData.emirate}
+              issue={formData.issue || 'general maintenance'}
               onStartNew={handleStartNew}
             />
           </div>
