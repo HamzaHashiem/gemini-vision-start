@@ -1,12 +1,111 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Car, Search, Wrench } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import CarDiagnosticForm from "@/components/CarDiagnosticForm";
+import DiagnosisResult from "@/components/DiagnosisResult";
+import GarageRecommendations from "@/components/GarageRecommendations";
 
 const Index = () => {
+  const [step, setStep] = useState<"form" | "diagnosis" | "garages">("form");
+  const [diagnosisData, setDiagnosisData] = useState<any>(null);
+  const [formData, setFormData] = useState<any>(null);
+
+  const handleDiagnosisComplete = (data: any, form: any) => {
+    setDiagnosisData(data);
+    setFormData(form);
+    setStep("diagnosis");
+  };
+
+  const handleFindGarages = () => {
+    setStep("garages");
+  };
+
+  const handleStartNew = () => {
+    setStep("form");
+    setDiagnosisData(null);
+    setFormData(null);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <header className="bg-gradient-hero text-primary-foreground py-12 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Wrench className="h-10 w-10 md:h-12 md:w-12" />
+            <h1 className="text-3xl md:text-5xl font-bold">UAE Car Diagnostics</h1>
+          </div>
+          <p className="text-center text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto">
+            AI-powered car diagnostics & trusted garage recommendations across the UAE
+          </p>
+          
+          {/* Progress Indicator */}
+          <div className="flex items-center justify-center gap-4 mt-8 max-w-md mx-auto">
+            <div className="flex items-center gap-2">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                step === "form" ? "bg-accent text-accent-foreground" : "bg-primary-foreground/20 text-primary-foreground/60"
+              }`}>
+                <Car className="h-4 w-4" />
+              </div>
+              <span className="text-sm hidden sm:inline">Describe Issue</span>
+            </div>
+            <div className="h-0.5 w-12 bg-primary-foreground/20" />
+            <div className="flex items-center gap-2">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                step === "diagnosis" ? "bg-accent text-accent-foreground" : "bg-primary-foreground/20 text-primary-foreground/60"
+              }`}>
+                <Search className="h-4 w-4" />
+              </div>
+              <span className="text-sm hidden sm:inline">AI Diagnosis</span>
+            </div>
+            <div className="h-0.5 w-12 bg-primary-foreground/20" />
+            <div className="flex items-center gap-2">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                step === "garages" ? "bg-accent text-accent-foreground" : "bg-primary-foreground/20 text-primary-foreground/60"
+              }`}>
+                <Wrench className="h-4 w-4" />
+              </div>
+              <span className="text-sm hidden sm:inline">Find Garages</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8 md:py-12">
+        {step === "form" && (
+          <div className="max-w-4xl mx-auto">
+            <CarDiagnosticForm onComplete={handleDiagnosisComplete} />
+          </div>
+        )}
+
+        {step === "diagnosis" && diagnosisData && (
+          <div className="max-w-4xl mx-auto">
+            <DiagnosisResult 
+              diagnosis={diagnosisData.diagnosis} 
+              onFindGarages={handleFindGarages}
+              onStartNew={handleStartNew}
+            />
+          </div>
+        )}
+
+        {step === "garages" && formData && (
+          <div className="max-w-6xl mx-auto">
+            <GarageRecommendations 
+              carMake={formData.carMake}
+              emirate={formData.emirate}
+              onStartNew={handleStartNew}
+            />
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-muted py-8 mt-16">
+        <div className="container mx-auto px-4 text-center text-muted-foreground">
+          <p className="text-sm">© 2025 UAE Car Diagnostics. Powered by AI for accurate vehicle diagnostics.</p>
+        </div>
+      </footer>
     </div>
   );
 };
