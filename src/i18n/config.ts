@@ -89,11 +89,11 @@ const resources = {
       
       // Garage Search Loading/Error States
       findingGarages: 'Finding Recommended Garages',
-      searchingSpecialists: 'Searching for {carMake} specialists in {emirate} for your {issue} issue...',
+      searchingSpecialists: 'Searching for {{carMake}} specialists in {{emirate}} for your {{issue}} issue...',
       garageSearchError: 'Garage Search Error',
-      unableToFindGarages: 'Unable to find garages for {carMake} in {emirate}',
+      unableToFindGarages: 'Unable to find garages for {{carMake}} in {{emirate}}',
       retry: 'Retry',
-      whatsappMessage: 'Hi, I found your garage through UAE Car Diagnostics. I have a {carMake} with {issue} issue. Can you help?',
+      whatsappMessage: 'Hi, I found your garage through UAE Car Diagnostics. I have a {{carMake}} with {{issue}} issue. Can you help?',
     }
   },
   ar: {
@@ -183,11 +183,11 @@ const resources = {
       
       // Garage Search Loading/Error States
       findingGarages: 'البحث عن الكراجات الموصى بها',
-      searchingSpecialists: 'البحث عن متخصصي {carMake} في {emirate} لمشكلة {issue}...',
+      searchingSpecialists: 'البحث عن متخصصي {{carMake}} في {{emirate}} لمشكلة {{issue}}...',
       garageSearchError: 'خطأ في البحث عن الكراجات',
-      unableToFindGarages: 'غير قادر على العثور على كراجات لـ {carMake} في {emirate}',
+      unableToFindGarages: 'غير قادر على العثور على كراجات لـ {{carMake}} في {{emirate}}',
       retry: 'إعادة المحاولة',
-      whatsappMessage: 'مرحباً، وجدت كراجكم من خلال تشخيص السيارات في الإمارات. لدي {carMake} بمشكلة {issue}. هل يمكنكم المساعدة؟',
+      whatsappMessage: 'مرحباً، وجدت كراجكم من خلال تشخيص السيارات في الإمارات. لدي {{carMake}} بمشكلة {{issue}}. هل يمكنكم المساعدة؟',
     }
   }
 };
