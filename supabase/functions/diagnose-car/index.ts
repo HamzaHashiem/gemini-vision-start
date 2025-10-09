@@ -11,7 +11,7 @@ serve(async (req) => {
   }
 
   try {
-    const { carMake, carModel, carYear, engineType, issueDescription, category, urgency } = await req.json();
+    const { carMake, carModel, carYear, issueDescription } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
@@ -20,27 +20,38 @@ serve(async (req) => {
 
     const systemPrompt = `You are an expert automotive diagnostic specialist with deep knowledge of car mechanics, electrical systems, and common issues across all major car brands. Provide professional, accurate diagnostic information.
 
-When analyzing car issues, provide:
-1. Possible causes (ranked by likelihood)
-2. Severity assessment (Critical/High/Medium/Low)
-3. Estimated repair cost range (in AED)
-4. Preventive measures and temporary solutions
-5. Common parts that may need replacement
+Format your response using the following structure with clear section headers:
 
-Be specific to the car make, model, and year when possible. Format your response in a clear, structured way.`;
+## DIAGNOSIS SUMMARY
+Provide a brief overview of the likely issue
+
+## POSSIBLE CAUSES
+List 3-5 possible causes ranked by likelihood
+
+## SEVERITY ASSESSMENT
+Rate: Critical/High/Medium/Low and explain why
+
+## ESTIMATED REPAIR COST
+Provide cost range in AED currency
+
+## RECOMMENDED ACTIONS
+1. Immediate steps to take
+2. Temporary solutions if applicable
+3. Long-term fixes
+
+## PARTS LIKELY NEEDED
+List common parts that may need replacement
+
+Be specific to the car make, model, and year when possible.`;
 
     const userPrompt = `Car Details:
 - Make: ${carMake}
 - Model: ${carModel}
 - Year: ${carYear}
-- Engine Type: ${engineType}
 
-Issue Category: ${category}
-Urgency Level: ${urgency}
+Issue Description: ${issueDescription}
 
-Description: ${issueDescription}
-
-Please provide a comprehensive diagnostic analysis.`;
+Please provide a comprehensive diagnostic analysis following the specified format.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import CarDiagnosticForm from "@/components/CarDiagnosticForm";
 import DiagnosisResult from "@/components/DiagnosisResult";
 import GarageRecommendations from "@/components/GarageRecommendations";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Index = () => {
   const [step, setStep] = useState<"form" | "diagnosis" | "garages">("form");
@@ -31,9 +32,14 @@ const Index = () => {
       {/* Hero Section */}
       <header className="bg-gradient-hero text-primary-foreground py-12 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Wrench className="h-10 w-10 md:h-12 md:w-12" />
-            <h1 className="text-3xl md:text-5xl font-bold">UAE Car Diagnostics</h1>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3 flex-1 justify-center">
+              <Wrench className="h-10 w-10 md:h-12 md:w-12" />
+              <h1 className="text-3xl md:text-5xl font-bold">UAE Car Diagnostics</h1>
+            </div>
+            <div className="absolute right-4 top-4">
+              <LanguageSwitcher />
+            </div>
           </div>
           <p className="text-center text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto">
             AI-powered car diagnostics & trusted garage recommendations across the UAE

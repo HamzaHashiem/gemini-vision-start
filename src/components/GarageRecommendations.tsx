@@ -6,6 +6,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useGarageSearch } from "@/hooks/useGarageSearchOSM";
 import GarageMap from "@/components/GarageMap";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 interface GarageRecommendationsProps {
   emirate: string;
@@ -16,6 +17,7 @@ interface GarageRecommendationsProps {
 
 const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRecommendationsProps) => {
   const { garages, loading, error, hasSearched, searchGarages, retrySearch } = useGarageSearch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (emirate && carMake && issue) {
@@ -90,15 +92,9 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-3xl font-bold text-foreground">OpenStreetMap Garage Finder</h2>
-            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-              <Leaf className="mr-1 h-3 w-3" />
-              Open Source
-            </Badge>
-          </div>
+          <h2 className="text-3xl font-bold text-foreground">{t('recommendedGarages')} {emirate}</h2>
           <p className="text-muted-foreground mt-1">
-            Top {garages.length} garages in {emirate} specialized in {carMake} for your {issue} issue
+            {garages.length} {t('nearYou')}
           </p>
         </div>
         <Button variant="outline" onClick={onStartNew}>
@@ -150,14 +146,14 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                       <div className="flex items-center gap-1">
                         <Star className="h-4 w-4 fill-warning text-warning" />
                         <span className="font-semibold text-foreground">{garage.rating.toFixed(1)}</span>
-                        <span>({garage.reviews} reviews)</span>
+                        <span>({garage.reviews} {t('reviews')})</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4" />
                         <span>{garage.emirate}</span>
                       </div>
                       <Badge variant="outline" className="text-xs">
-                        Relevance: {garage.relevanceScore.toFixed(1)}
+                        {t('relevanceScore')}: {garage.relevanceScore.toFixed(1)}
                       </Badge>
                     </div>
                   </div>
@@ -185,7 +181,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                     <div className="flex items-start gap-2">
                       <Clock className="h-4 w-4 mt-1 text-muted-foreground" />
                       <div>
-                        <p className="text-sm font-medium">Working Hours</p>
+                        <p className="text-sm font-medium">{t('workingHours')}</p>
                         <p className="text-sm text-muted-foreground">{garage.workingHours}</p>
                       </div>
                     </div>
@@ -193,7 +189,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                   
                   <div className="space-y-3">
                     <div>
-                      <p className="text-sm font-medium mb-2">Services Available</p>
+                      <p className="text-sm font-medium mb-2">{t('services')}</p>
                       <div className="flex flex-wrap gap-2">
                         {garage.services.map((service) => (
                           <Badge key={service} variant="secondary">{service}</Badge>
@@ -241,7 +237,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                       disabled={garage.phone === 'N/A'}
                     >
                       <Phone className="mr-2 h-4 w-4" />
-                      {garage.phone === 'N/A' ? 'No Phone' : 'Call Now'}
+                      {garage.phone === 'N/A' ? 'No Phone' : t('callNow')}
                     </Button>
                     <Button 
                       size="sm" 
@@ -260,7 +256,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                         onClick={() => window.open(garage.website, '_blank')}
                       >
                         <Globe className="mr-2 h-4 w-4" />
-                        Website
+                        {t('visitWebsite')}
                       </Button>
                     )}
                     <div className="ml-auto flex items-center gap-2 text-sm text-muted-foreground">

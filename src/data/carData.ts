@@ -54,24 +54,4 @@ export const CAR_MODELS: Record<string, string[]> = {
   "Porsche": ["911", "Cayenne", "Macan", "Panamera", "Taycan"]
 };
 
-export const ENGINE_TYPES = ["Petrol", "Diesel", "Hybrid", "Electric"] as const;
-
-export const ISSUE_CATEGORIES = [
-  "Engine Problems",
-  "Electrical Issues",
-  "Brake Problems",
-  "Transmission Issues",
-  "Air Conditioning",
-  "Suspension",
-  "Body Work",
-  "Other"
-] as const;
-
-export const URGENCY_LEVELS = [
-  { value: "critical", label: "Critical", color: "destructive" },
-  { value: "high", label: "High", color: "warning" },
-  { value: "medium", label: "Medium", color: "accent" },
-  { value: "low", label: "Low", color: "success" }
-] as const;
-
 export const YEARS = Array.from({ length: 26 }, (_, i) => (2025 - i).toString());
