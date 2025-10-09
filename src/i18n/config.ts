@@ -59,7 +59,7 @@ const resources = {
       openNow: 'Open Now',
       closed: 'Closed',
       address: 'Address',
-      viewOnMap: 'View on OpenStreetMap',
+      viewOnMap: 'View on Maps',
       specialization: 'Specialization',
       customerReviews: 'Customer Reviews',
       callGarage: 'Call',
@@ -86,6 +86,14 @@ const resources = {
       aiAnalyzedIssue: 'AI has analyzed your vehicle issue',
       error: 'Error',
       diagnosisError: 'Failed to get diagnosis. Please try again.',
+      
+      // Garage Search Loading/Error States
+      findingGarages: 'Finding Recommended Garages',
+      searchingSpecialists: 'Searching for {carMake} specialists in {emirate} for your {issue} issue...',
+      garageSearchError: 'Garage Search Error',
+      unableToFindGarages: 'Unable to find garages for {carMake} in {emirate}',
+      retry: 'Retry',
+      whatsappMessage: 'Hi, I found your garage through UAE Car Diagnostics. I have a {carMake} with {issue} issue. Can you help?',
     }
   },
   ar: {
@@ -145,7 +153,7 @@ const resources = {
       openNow: 'مفتوح الآن',
       closed: 'مغلق',
       address: 'العنوان',
-      viewOnMap: 'عرض على الخريطة',
+      viewOnMap: 'عرض على الخرائط',
       specialization: 'التخصص',
       customerReviews: 'تقييمات العملاء',
       callGarage: 'اتصل',
@@ -172,6 +180,14 @@ const resources = {
       aiAnalyzedIssue: 'قام الذكاء الاصطناعي بتحليل مشكلة مركبتك',
       error: 'خطأ',
       diagnosisError: 'فشل في الحصول على التشخيص. يرجى المحاولة مرة أخرى.',
+      
+      // Garage Search Loading/Error States
+      findingGarages: 'البحث عن الكراجات الموصى بها',
+      searchingSpecialists: 'البحث عن متخصصي {carMake} في {emirate} لمشكلة {issue}...',
+      garageSearchError: 'خطأ في البحث عن الكراجات',
+      unableToFindGarages: 'غير قادر على العثور على كراجات لـ {carMake} في {emirate}',
+      retry: 'إعادة المحاولة',
+      whatsappMessage: 'مرحباً، وجدت كراجكم من خلال تشخيص السيارات في الإمارات. لدي {carMake} بمشكلة {issue}. هل يمكنكم المساعدة؟',
     }
   }
 };

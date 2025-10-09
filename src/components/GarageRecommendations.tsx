@@ -30,14 +30,14 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
       <div className="space-y-6 animate-fade-in">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold text-foreground">Finding Recommended Garages</h2>
+            <h2 className="text-3xl font-bold text-foreground">{t('findingGarages')}</h2>
             <p className="text-muted-foreground mt-1">
-              Searching for {carMake} specialists in {emirate} for your {issue} issue...
+              {t('searchingSpecialists', { carMake, emirate, issue })}
             </p>
           </div>
           <Button variant="outline" onClick={onStartNew}>
             <ArrowLeft className="mr-2 h-4 w-4" />
-            New Diagnosis
+            {t('newDiagnosis')}
           </Button>
         </div>
         
@@ -63,14 +63,14 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
       <div className="space-y-6 animate-fade-in">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold text-foreground">Garage Search Error</h2>
+            <h2 className="text-3xl font-bold text-foreground">{t('garageSearchError')}</h2>
             <p className="text-muted-foreground mt-1">
-              Unable to find garages for {carMake} in {emirate}
+              {t('unableToFindGarages', { carMake, emirate })}
             </p>
           </div>
           <Button variant="outline" onClick={onStartNew}>
             <ArrowLeft className="mr-2 h-4 w-4" />
-            New Diagnosis
+            {t('newDiagnosis')}
           </Button>
         </div>
 
@@ -80,7 +80,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
             <span>{error}</span>
             <Button variant="outline" size="sm" onClick={retrySearch}>
               <RefreshCw className="mr-2 h-4 w-4" />
-              Retry
+              {t('retry')}
             </Button>
           </AlertDescription>
         </Alert>
@@ -171,7 +171,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                           variant="link"
                           size="sm"
                           className="p-0 h-auto text-xs"
-                          onClick={() => window.open(`https://www.openstreetmap.org/?mlat=${garage.coordinates.lat}&mlon=${garage.coordinates.lng}&zoom=16`, '_blank')}
+                          onClick={() => window.open(`https://www.google.com/maps?q=${garage.coordinates.lat},${garage.coordinates.lng}`, '_blank')}
                         >
                           <ExternalLink className="mr-1 h-3 w-3" />
                           {t('viewOnMap')}
@@ -243,7 +243,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                       size="sm" 
                       variant="outline"
                       className="bg-green-50 hover:bg-green-100 text-green-700 border-green-200"
-                      onClick={() => window.open(`https://wa.me/${garage.phone.replace(/[^0-9]/g, '')}?text=Hi, I found your garage through UAE Car Diagnostics. I have a ${carMake} with ${issue} issue. Can you help?`, '_blank')}
+                      onClick={() => window.open(`https://wa.me/${garage.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(t('whatsappMessage', { carMake, issue }))}`, '_blank')}
                       disabled={garage.phone === 'N/A'}
                     >
                       <MessageCircle className="mr-2 h-4 w-4" />
