@@ -51,8 +51,23 @@ const FormattedDiagnosis = ({ diagnosis }: FormattedDiagnosisProps) => {
               </h3>
             </div>
             <div className="pl-8">
-              <div className="prose prose-sm max-w-none text-foreground/90 leading-relaxed whitespace-pre-wrap">
-                {content}
+              <div className="prose prose-sm max-w-none text-foreground/90 leading-relaxed">
+                {content.split('\n').map((line, lineIndex) => {
+                  // Clean up any remaining asterisks and format the line
+                  let cleanLine = line.trim();
+                  
+                  // Remove leading asterisks and clean up bullet points
+                  cleanLine = cleanLine.replace(/^\*+\s*/, '');
+                  cleanLine = cleanLine.replace(/^-+\s*/, '');
+                  
+                  if (!cleanLine) return <br key={lineIndex} />;
+                  
+                  return (
+                    <div key={lineIndex} className="mb-2">
+                      {cleanLine}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

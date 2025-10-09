@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,14 +16,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { CAR_MAKES, CAR_MODELS, YEARS, UAE_EMIRATES } from "@/data/carData";
 import { useTranslation } from "react-i18next";
 
-const formSchema = z.object({
-  carMake: z.string().min(1, "selectMakeError"),
-  carModel: z.string().min(1, "selectModelError"),
-  carYear: z.string().min(1, "selectYearError"),
-  issueDescription: z.string().min(10, "descriptionMinError"),
-  emirate: z.string().min(1, "selectEmirateError"),
-});
-
 interface CarDiagnosticFormProps {
   onComplete: (data: any, formData: any) => void;
 }
@@ -30,7 +23,16 @@ interface CarDiagnosticFormProps {
 const CarDiagnosticForm = ({ onComplete }: CarDiagnosticFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  // Create dynamic schema with translated error messages
+  const formSchema = z.object({
+    carMake: z.string().min(1, t('selectMakeError')),
+    carModel: z.string().min(1, t('selectModelError')),
+    carYear: z.string().min(1, t('selectYearError')),
+    issueDescription: z.string().min(10, t('descriptionMinError')),
+    emirate: z.string().min(1, t('selectEmirateError')),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,14 +52,14 @@ const CarDiagnosticForm = ({ onComplete }: CarDiagnosticFormProps) => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("diagnose-car", {
-        body: values,
+        body: { ...values, language: i18n.language },
       });
 
       if (error) throw error;
 
       if (data?.error) {
         toast({
-          title: "Service Error",
+          title: t('serviceError'),
           description: data.error,
           variant: "destructive",
         });
@@ -65,16 +67,16 @@ const CarDiagnosticForm = ({ onComplete }: CarDiagnosticFormProps) => {
       }
 
       toast({
-        title: "Diagnosis Complete",
-        description: "AI has analyzed your vehicle issue",
+        title: t('diagnosisComplete'),
+        description: t('aiAnalyzedIssue'),
       });
 
       onComplete(data, values);
     } catch (error) {
       console.error("Error getting diagnosis:", error);
       toast({
-        title: "Error",
-        description: "Failed to get diagnosis. Please try again.",
+        title: t('error'),
+        description: t('diagnosisError'),
         variant: "destructive",
       });
     } finally {

@@ -7,6 +7,15 @@ const resources = {
       // Navigation
       changeLanguage: 'العربية',
       
+      // Header
+      appTitle: 'UAE Car Diagnostics',
+      appSubtitle: 'AI-powered car diagnostics & trusted garage recommendations across the UAE',
+      
+      // Progress Steps
+      describeIssue: 'Describe Issue',
+      aiDiagnosis: 'AI Diagnosis',
+      findGarages: 'Find Garages',
+      
       // Form
       formTitle: 'Describe Your Car Issue',
       formDescription: 'Provide details about your vehicle and the problem you\'re experiencing',
@@ -43,6 +52,23 @@ const resources = {
       getDirections: 'Get Directions',
       callNow: 'Call Now',
       visitWebsite: 'Visit Website',
+      newDiagnosis: 'New Diagnosis',
+      garageLocations: 'Garage Locations',
+      noGaragesFound: 'No suitable garages found for your specific criteria. Try broadening your search or selecting a different emirate.',
+      searchAgain: 'Search Again',
+      openNow: 'Open Now',
+      closed: 'Closed',
+      address: 'Address',
+      viewOnMap: 'View on OpenStreetMap',
+      specialization: 'Specialization',
+      customerReviews: 'Customer Reviews',
+      callGarage: 'Call',
+      whatsApp: 'WhatsApp',
+      osmSource: 'OSM Source',
+      openData: 'Open Data',
+      
+      // Footer
+      footerText: '© 2025 UAE Car Diagnostics. Powered by AI for accurate vehicle diagnostics.',
       
       // Errors
       selectMakeError: 'Please select a car make',
@@ -50,12 +76,31 @@ const resources = {
       selectYearError: 'Please select a year',
       descriptionMinError: 'Please provide a detailed description (at least 10 characters)',
       selectEmirateError: 'Please select your emirate',
+      
+      // Misc
+      noPhone: 'No Phone',
+      
+      // Toast Messages
+      serviceError: 'Service Error',
+      diagnosisComplete: 'Diagnosis Complete',
+      aiAnalyzedIssue: 'AI has analyzed your vehicle issue',
+      error: 'Error',
+      diagnosisError: 'Failed to get diagnosis. Please try again.',
     }
   },
   ar: {
     translation: {
       // Navigation
       changeLanguage: 'English',
+      
+      // Header
+      appTitle: 'تشخيص السيارات في الإمارات',
+      appSubtitle: 'تشخيص السيارات بالذكاء الاصطناعي وتوصيات الكراجات الموثوقة في جميع أنحاء الإمارات',
+      
+      // Progress Steps
+      describeIssue: 'وصف المشكلة',
+      aiDiagnosis: 'تشخيص الذكاء الاصطناعي',
+      findGarages: 'البحث عن الكراجات',
       
       // Form
       formTitle: 'صف مشكلة سيارتك',
@@ -93,6 +138,23 @@ const resources = {
       getDirections: 'احصل على الاتجاهات',
       callNow: 'اتصل الآن',
       visitWebsite: 'زيارة الموقع',
+      newDiagnosis: 'تشخيص جديد',
+      garageLocations: 'مواقع الكراجات',
+      noGaragesFound: 'لم يتم العثور على كراجات مناسبة لمعاييرك المحددة. حاول توسيع بحثك أو اختيار إمارة أخرى.',
+      searchAgain: 'ابحث مرة أخرى',
+      openNow: 'مفتوح الآن',
+      closed: 'مغلق',
+      address: 'العنوان',
+      viewOnMap: 'عرض على الخريطة',
+      specialization: 'التخصص',
+      customerReviews: 'تقييمات العملاء',
+      callGarage: 'اتصل',
+      whatsApp: 'واتساب',
+      osmSource: 'مصدر OSM',
+      openData: 'بيانات مفتوحة',
+      
+      // Footer
+      footerText: '© 2025 تشخيص السيارات في الإمارات. مدعوم بالذكاء الاصطناعي لتشخيص دقيق للمركبات.',
       
       // Errors
       selectMakeError: 'الرجاء اختيار صانع السيارة',
@@ -100,15 +162,37 @@ const resources = {
       selectYearError: 'الرجاء اختيار السنة',
       descriptionMinError: 'الرجاء تقديم وصف تفصيلي (10 أحرف على الأقل)',
       selectEmirateError: 'الرجاء اختيار إمارتك',
+      
+      // Misc
+      noPhone: 'لا يوجد هاتف',
+      
+      // Toast Messages
+      serviceError: 'خطأ في الخدمة',
+      diagnosisComplete: 'اكتمل التشخيص',
+      aiAnalyzedIssue: 'قام الذكاء الاصطناعي بتحليل مشكلة مركبتك',
+      error: 'خطأ',
+      diagnosisError: 'فشل في الحصول على التشخيص. يرجى المحاولة مرة أخرى.',
     }
   }
 };
+
+// Get saved language from localStorage or default to 'en'
+const getSavedLanguage = () => {
+  try {
+    return localStorage.getItem('language') || 'en';
+  } catch (error) {
+    console.warn('localStorage not available, using default language');
+    return 'en';
+  }
+};
+
+const savedLanguage = getSavedLanguage();
 
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en',
+    lng: savedLanguage,
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false

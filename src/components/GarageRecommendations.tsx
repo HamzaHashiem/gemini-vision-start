@@ -99,14 +99,14 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
         </div>
         <Button variant="outline" onClick={onStartNew}>
           <ArrowLeft className="mr-2 h-4 w-4" />
-          New Diagnosis
+          {t('newDiagnosis')}
         </Button>
       </div>
 
       {/* Add map view */}
       {garages.length > 0 && (
         <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-3">Garage Locations</h3>
+          <h3 className="text-lg font-semibold mb-3">{t('garageLocations')}</h3>
           <GarageMap garages={garages} />
         </div>
       )}
@@ -116,11 +116,11 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
           <CardContent className="py-12 text-center">
             <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <p className="text-muted-foreground mb-4">
-              No suitable garages found for your specific criteria. Try broadening your search or selecting a different emirate.
+              {t('noGaragesFound')}
             </p>
             <Button variant="outline" onClick={retrySearch}>
               <RefreshCw className="mr-2 h-4 w-4" />
-              Search Again
+              {t('searchAgain')}
             </Button>
           </CardContent>
         </Card>
@@ -138,7 +138,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                       <CardTitle className="text-xl">{garage.name}</CardTitle>
                       {garage.isOpen !== undefined && (
                         <Badge variant={garage.isOpen ? "default" : "secondary"}>
-                          {garage.isOpen ? "Open Now" : "Closed"}
+                          {garage.isOpen ? t('openNow') : t('closed')}
                         </Badge>
                       )}
                     </div>
@@ -165,7 +165,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                     <div className="flex items-start gap-2">
                       <MapPin className="h-4 w-4 mt-1 text-muted-foreground" />
                       <div>
-                        <p className="text-sm font-medium">Address</p>
+                        <p className="text-sm font-medium">{t('address')}</p>
                         <p className="text-sm text-muted-foreground">{garage.address}</p>
                         <Button
                           variant="link"
@@ -174,7 +174,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                           onClick={() => window.open(`https://www.openstreetmap.org/?mlat=${garage.coordinates.lat}&mlon=${garage.coordinates.lng}&zoom=16`, '_blank')}
                         >
                           <ExternalLink className="mr-1 h-3 w-3" />
-                          View on OpenStreetMap
+                          {t('viewOnMap')}
                         </Button>
                       </div>
                     </div>
@@ -198,7 +198,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                     </div>
                     {garage.carMakeRelevance > 0 && (
                       <div>
-                        <p className="text-sm font-medium mb-2">{carMake} Specialization</p>
+                        <p className="text-sm font-medium mb-2">{carMake} {t('specialization')}</p>
                         <div className="flex items-center gap-2">
                           <div className="h-2 bg-muted rounded-full flex-1">
                             <div 
@@ -217,7 +217,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
 
                 {garage.reviewHighlights.length > 0 && (
                   <div className="pt-4 border-t">
-                    <p className="text-sm font-medium mb-2">Customer Reviews</p>
+                    <p className="text-sm font-medium mb-2">{t('customerReviews')}</p>
                     <div className="space-y-2">
                       {garage.reviewHighlights.map((highlight, idx) => (
                         <div key={idx} className="text-sm text-muted-foreground italic border-l-2 border-muted pl-3">
@@ -237,7 +237,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                       disabled={garage.phone === 'N/A'}
                     >
                       <Phone className="mr-2 h-4 w-4" />
-                      {garage.phone === 'N/A' ? 'No Phone' : t('callNow')}
+                      {garage.phone === 'N/A' ? t('noPhone') : t('callGarage')}
                     </Button>
                     <Button 
                       size="sm" 
@@ -247,7 +247,7 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                       disabled={garage.phone === 'N/A'}
                     >
                       <MessageCircle className="mr-2 h-4 w-4" />
-                      WhatsApp
+                      {t('whatsApp')}
                     </Button>
                     {garage.website && (
                       <Button 
@@ -260,10 +260,10 @@ const GarageRecommendations = ({ emirate, carMake, issue, onStartNew }: GarageRe
                       </Button>
                     )}
                     <div className="ml-auto flex items-center gap-2 text-sm text-muted-foreground">
-                      <span className="font-medium">OSM Source</span>
+                      <span className="font-medium">{t('osmSource')}</span>
                       <Badge variant="default" className="bg-blue-100 text-blue-800 border-blue-200">
                         <Leaf className="mr-1 h-3 w-3" />
-                        Open Data
+                        {t('openData')}
                       </Badge>
                     </div>
                   </div>

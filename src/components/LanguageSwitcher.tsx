@@ -1,20 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Globe } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const LanguageSwitcher = () => {
-  const { i18n, t } = useTranslation();
-
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'ar' : 'en';
-    i18n.changeLanguage(newLang);
-    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = newLang;
-  };
+  const { t } = useTranslation();
+  const { toggleLanguage } = useLanguage();
 
   return (
     <Button
-      variant="outline"
       size="sm"
       onClick={toggleLanguage}
       className="gap-2"
